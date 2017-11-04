@@ -16,5 +16,16 @@
  	},
 	add:function(req, res) {
 		res.view('add');
+	},
+	create:function(req, res){
+		let title = req.body.title;
+		let body = req.body.body;
+
+		Articles.create({title:title, body: body}).exec(function(err){
+			if (err) {
+				res.end(500, {error: 'Mongodb Article create Error'});
+			}
+			res.redirect('/articles/list');
+		})
 	}
  };
